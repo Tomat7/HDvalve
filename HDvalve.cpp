@@ -1,6 +1,6 @@
 /*
 HDvalve.cpp - Library to operate with valves
-Created by Tomat7, October 2017.
+Created by Tomat7, October 2017, 2018.
 */
 
 #include "Arduino.h"
