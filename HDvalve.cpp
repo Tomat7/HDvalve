@@ -26,12 +26,12 @@ void Valve::init()
 
 void Valve::control()
 {
-	if ((msOpen_ < 10) || (msClose_ > 60000)) // не щёлкать совсем!!
+	if ((msOpen_ < 1) || (msClose_ > MAX_TIME)) // не щёлкать совсем!!
 	{
 		Flow = false; // выключаем
 		setState_();
 	}
-	else if  ((msClose_ < 10) || (msOpen_ == 255))	// открываем на полную !!
+	else if  (msOpen_ > MAX_TIME)				// открываем полностью и не щелкаем !!
 	{
 		Flow = true;	// ** СЛИВ!! ** 
 		setState_();
@@ -47,7 +47,9 @@ void Valve::control()
 		{
 			Flow = false; // выключаем
 			setState_();
+			#ifdef DEBUG1
 			lastON = msPassed;
+			#endif
 			#ifdef DEBUG3
 			Serial.print("on: ");
 			Serial.println(msPassed);
@@ -58,7 +60,9 @@ void Valve::control()
 			Flow = true; // включаем
 			setState_();
 			Clicks++;
+			#ifdef DEBUG1
 			lastOFF = msPassed;
+			#endif
 			#ifdef DEBUG3
 			Serial.print("off: ");
 			Serial.println(msPassed);
@@ -69,12 +73,12 @@ void Valve::control()
 }
 
 
-void Valve::setTime(int OffTime)
+void Valve::setTime(uint16_t OffTime)
 {
 	msClose_ = OffTime;
 }
 
-void Valve::setTime(int OffTime, byte OnTime)
+void Valve::setTime(uint16_t OffTime, uint16_t OnTime)
 {
 	msOpen_ = OnTime;
 	msClose_ = OffTime;
