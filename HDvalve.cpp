@@ -20,8 +20,9 @@ void Valve::init()
 {
 	//msOpen_ = 0;
 	//msClose_ = 65535;
-	Serial.print(F(LIBVERSION));
-	Serial.println(pin_);
+	//Serial.print(F(LIBVERSION));
+	//Serial.println(pin_);
+	printConfig();
 }
 
 void Valve::control()
@@ -88,6 +89,13 @@ void Valve::setState_()
 {
 	digitalWrite(pin_, Flow); // реализуем новое состояние
 	lastMillis_ = millis(); // запоминаем момент времени
+}
+
+void Valve::printConfig()
+{
+	Serial.print(F(LIBVERSION));
+	Serial.println(pin_);
+	return;
 }
 
 

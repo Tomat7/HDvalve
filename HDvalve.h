@@ -7,7 +7,12 @@
 
 #include "Arduino.h"
 
+#ifdef LIBVERSION
+#undef LIBVERSION
+#endif
 #define LIBVERSION "HDvalve_v20181025 on pin "
+
+	
 #define MAX_TIME 60000
 //#define DEBUG1
 //#define DEBUG2
@@ -24,7 +29,8 @@ public:
 	void init(); 			
 	void control();						// функция для регулярного вызова (чем чаще - тем лучше), она открывает/закрывает клапан
 	void setTime(uint16_t OffTime);		// задаём временные интервалы в миллисекундах!
-	void setTime(uint16_t OffTime, uint16_t OnTime);	
+	void setTime(uint16_t OffTime, uint16_t OnTime);
+	void printConfig();
 	
 	boolean Flow;    		// признак клапан открыт (HIGH = TRUE = открыт)
 	unsigned int Clicks;
